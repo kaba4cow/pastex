@@ -30,6 +30,7 @@ public class Paste {
 	@Column(name = "column_id")
 	private UUID id;
 
+	@ToString.Exclude
 	@Column(name = "column_content", updatable = false)
 	private String content;
 
