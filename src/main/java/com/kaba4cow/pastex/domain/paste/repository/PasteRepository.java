@@ -1,4 +1,4 @@
-package com.kaba4cow.pastex.domain.paste;
+package com.kaba4cow.pastex.domain.paste.repository;
 
 import java.util.UUID;
 
