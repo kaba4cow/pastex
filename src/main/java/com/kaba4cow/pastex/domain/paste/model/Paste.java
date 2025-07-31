@@ -1,4 +1,4 @@
-package com.kaba4cow.pastex.domain.paste;
+package com.kaba4cow.pastex.domain.paste.model;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

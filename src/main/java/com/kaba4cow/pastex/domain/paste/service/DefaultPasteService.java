@@ -4,11 +4,11 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.kaba4cow.pastex.domain.paste.Paste;
 import com.kaba4cow.pastex.domain.paste.PasteRepository;
 import com.kaba4cow.pastex.domain.paste.dto.PasteCreateRequest;
 import com.kaba4cow.pastex.domain.paste.dto.PasteDto;
 import com.kaba4cow.pastex.domain.paste.dto.PasteMapper;
+import com.kaba4cow.pastex.domain.paste.model.Paste;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
