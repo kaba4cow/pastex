@@ -24,7 +24,6 @@ public class PasteRepositoryTest {
 	@Test
 	public void saveAndFindById() {
 		Paste paste = Paste.builder()//
-				.id(UUID.randomUUID())//
 				.content("test content")//
 				.build();
 
@@ -38,7 +37,6 @@ public class PasteRepositoryTest {
 	@Test
 	public void findByIdOrThrow_returns() {
 		Paste paste = Paste.builder()//
-				.id(UUID.randomUUID())//
 				.content("test content")//
 				.build();
 
