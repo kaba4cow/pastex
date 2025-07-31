@@ -1,5 +1,7 @@
 package com.kaba4cow.pastex.domain.paste.service;
 
+import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 
 import com.kaba4cow.pastex.domain.paste.Paste;
@@ -28,6 +30,11 @@ public class DefaultPasteService implements PasteService {
 		Paste saved = pasteRepository.save(paste);
 		log.info("Created paste: {}", saved);
 		return pasteMapper.mapToDto(saved);
+	}
+
+	@Override
+	public PasteDto getPaste(UUID id) {
+		return pasteMapper.mapToDto(pasteRepository.findByIdOrThrow(id));
 	}
 
 }
