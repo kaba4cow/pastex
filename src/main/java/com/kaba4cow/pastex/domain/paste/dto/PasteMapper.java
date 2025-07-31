@@ -10,6 +10,7 @@ public class PasteMapper {
 	public PasteDto mapToDto(Paste paste) {
 		return PasteDto.builder()//
 				.id(paste.getId())//
+				.content(paste.getContent())//
 				.createdAt(paste.getCreatedAt())//
 				.build();
 	}

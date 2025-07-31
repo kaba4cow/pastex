@@ -14,6 +14,8 @@ public class PasteDto {
 
 	private final UUID id;
 
+	private final String content;
+
 	private final LocalDateTime createdAt;
 
 }

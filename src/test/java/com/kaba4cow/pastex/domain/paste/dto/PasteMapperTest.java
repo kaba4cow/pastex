@@ -31,6 +31,7 @@ public class PasteMapperTest {
 
 		assertNotNull(dto);
 		assertEquals(paste.getId(), dto.getId());
+		assertEquals(paste.getContent(), dto.getContent());
 		assertEquals(paste.getCreatedAt(), dto.getCreatedAt());
 	}
 
