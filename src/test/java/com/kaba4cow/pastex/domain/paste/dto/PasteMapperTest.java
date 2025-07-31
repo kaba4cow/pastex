@@ -1,6 +1,7 @@
 package com.kaba4cow.pastex.domain.paste.dto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -28,6 +29,7 @@ public class PasteMapperTest {
 
 		PasteDto dto = pasteMapper.mapToDto(paste);
 
+		assertNotNull(dto);
 		assertEquals(paste.getId(), dto.getId());
 		assertEquals(paste.getCreatedAt(), dto.getCreatedAt());
 	}
