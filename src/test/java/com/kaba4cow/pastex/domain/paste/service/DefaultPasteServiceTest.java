@@ -3,6 +3,7 @@ package com.kaba4cow.pastex.domain.paste.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -20,6 +21,7 @@ import com.kaba4cow.pastex.domain.paste.dto.PasteCreateRequest;
 import com.kaba4cow.pastex.domain.paste.dto.PasteDto;
 import com.kaba4cow.pastex.domain.paste.dto.PasteMapper;
 import com.kaba4cow.pastex.domain.paste.model.Paste;
+import com.kaba4cow.pastex.domain.paste.policy.PasteAccessPolicy;
 import com.kaba4cow.pastex.domain.paste.repository.PasteRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,6 +34,9 @@ public class DefaultPasteServiceTest {
 	private ExpirationService expirationService;
 
 	@Mock
+	private PasteAccessPolicy pasteAccessPolicy;
+
+	@Mock
 	private PasteMapper pasteMapper;
 
 	@InjectMocks
@@ -42,17 +47,17 @@ public class DefaultPasteServiceTest {
 		String content = "test content";
 		PasteCreateRequest request = PasteCreateRequest.builder()//
 				.content(content)//
+				.password(null)//
 				.build();
 		Paste savedPaste = Paste.builder()//
 				.id(UUID.randomUUID())//
 				.content(content)//
-				.createdAt(LocalDateTime.now())//
+				.passwordHash(null)//
 				.expiresAt(LocalDateTime.MAX)//
 				.build();
 		PasteDto expectedDto = PasteDto.builder()//
 				.id(savedPaste.getId())//
 				.content(content)//
-				.createdAt(savedPaste.getCreatedAt())//
 				.expiresAt(LocalDateTime.MAX)//
 				.build();
 
@@ -60,7 +65,7 @@ public class DefaultPasteServiceTest {
 		when(pasteRepository.save(any(Paste.class))).thenReturn(savedPaste);
 		when(pasteMapper.mapToDto(savedPaste)).thenReturn(expectedDto);
 
-		PasteDto actualDto = pasteService.createPaste(request);
+		PasteDto actualDto = pasteService.createPaste(request, null);
 
 		verify(pasteRepository).save(any(Paste.class));
 		assertEquals(expectedDto, actualDto);
@@ -74,20 +79,19 @@ public class DefaultPasteServiceTest {
 		Paste foundPaste = Paste.builder()//
 				.id(id)//
 				.content(content)//
-				.createdAt(LocalDateTime.now())//
 				.expiresAt(LocalDateTime.MAX)//
 				.build();
 		PasteDto expectedDto = PasteDto.builder()//
 				.id(foundPaste.getId())//
 				.content(foundPaste.getContent())//
-				.createdAt(foundPaste.getCreatedAt())//
 				.expiresAt(LocalDateTime.MAX)//
 				.build();
 
+		doNothing().when(pasteAccessPolicy).checkAccess(any(Paste.class), any(), any());
 		when(pasteRepository.findByIdOrThrow(id)).thenReturn(foundPaste);
 		when(pasteMapper.mapToDto(foundPaste)).thenReturn(expectedDto);
 
-		PasteDto actualDto = pasteService.getPaste(id);
+		PasteDto actualDto = pasteService.getPaste(id, null, null);
 
 		verify(pasteRepository).findByIdOrThrow(id);
 		assertEquals(expectedDto, actualDto);
@@ -97,7 +101,7 @@ public class DefaultPasteServiceTest {
 	public void getPaste_shouldThrowNotFound() {
 		when(pasteRepository.findByIdOrThrow(any(UUID.class))).thenThrow(NotFoundException.class);
 
-		assertThrows(NotFoundException.class, () -> pasteService.getPaste(UUID.randomUUID()));
+		assertThrows(NotFoundException.class, () -> pasteService.getPaste(UUID.randomUUID(), null, null));
 
 		verify(pasteRepository).findByIdOrThrow(any(UUID.class));
 	}

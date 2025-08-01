@@ -25,6 +25,8 @@ public class PasteRepositoryTest {
 	public void saveAndFindById() {
 		Paste paste = Paste.builder()//
 				.content("test content")//
+				.author(null)//
+				.passwordHash(null)//
 				.build();
 
 		pasteRepository.save(paste);
@@ -38,6 +40,8 @@ public class PasteRepositoryTest {
 	public void findByIdOrThrow_returns() {
 		Paste paste = Paste.builder()//
 				.content("test content")//
+				.author(null)//
+				.passwordHash(null)//
 				.build();
 
 		pasteRepository.save(paste);

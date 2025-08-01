@@ -1,15 +1,21 @@
 package com.kaba4cow.pastex.domain.paste.model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
-import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.kaba4cow.pastex.domain.user.model.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,11 +42,19 @@ public class Paste {
 	@Column(name = "column_content", updatable = false)
 	private String content;
 
-	@CreationTimestamp
-	@Column(name = "column_created_at", updatable = false)
-	private LocalDateTime createdAt;
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "column_author", updatable = false)
+	@OnDelete(action = OnDeleteAction.SET_NULL)
+	private User author;
+
+	@Column(name = "column_password_hash", updatable = false)
+	private String passwordHash;
 
 	@Column(name = "column_expires_at", updatable = false)
 	private LocalDateTime expiresAt;
+
+	public boolean isSecured() {
+		return Objects.nonNull(passwordHash);
+	}
 
 }

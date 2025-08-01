@@ -16,8 +16,6 @@ public class PasteDto {
 
 	private final String content;
 
-	private final LocalDateTime createdAt;
-
 	private final LocalDateTime expiresAt;
 
 }

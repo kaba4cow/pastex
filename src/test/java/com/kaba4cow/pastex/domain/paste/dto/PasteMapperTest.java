@@ -24,7 +24,7 @@ public class PasteMapperTest {
 		Paste paste = Paste.builder()//
 				.id(UUID.randomUUID())//
 				.content("content")//
-				.createdAt(LocalDateTime.now())//
+				.expiresAt(LocalDateTime.now())//
 				.build();
 
 		PasteDto dto = pasteMapper.mapToDto(paste);
@@ -32,7 +32,7 @@ public class PasteMapperTest {
 		assertNotNull(dto);
 		assertEquals(paste.getId(), dto.getId());
 		assertEquals(paste.getContent(), dto.getContent());
-		assertEquals(paste.getCreatedAt(), dto.getCreatedAt());
+		assertEquals(paste.getExpiresAt(), dto.getExpiresAt());
 	}
 
 }
