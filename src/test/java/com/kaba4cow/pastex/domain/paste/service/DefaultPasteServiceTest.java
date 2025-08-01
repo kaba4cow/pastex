@@ -42,10 +42,12 @@ public class DefaultPasteServiceTest {
 		String content = "test content";
 		PasteCreateRequest request = PasteCreateRequest.builder()//
 				.content(content)//
+				.password(null)//
 				.build();
 		Paste savedPaste = Paste.builder()//
 				.id(UUID.randomUUID())//
 				.content(content)//
+				.passwordHash(null)//
 				.expiresAt(LocalDateTime.MAX)//
 				.build();
 		PasteDto expectedDto = PasteDto.builder()//

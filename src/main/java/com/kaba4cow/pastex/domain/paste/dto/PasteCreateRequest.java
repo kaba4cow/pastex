@@ -1,6 +1,7 @@
 package com.kaba4cow.pastex.domain.paste.dto;
 
 import com.kaba4cow.pastex.common.validation.ValidExpiration;
+import com.kaba4cow.pastex.domain.paste.validation.ValidPassword;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -21,5 +22,8 @@ public class PasteCreateRequest {
 
 	@ValidExpiration
 	private String expiration;
+
+	@ValidPassword
+	private String password;
 
 }

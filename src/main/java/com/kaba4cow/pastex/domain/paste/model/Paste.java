@@ -42,9 +42,12 @@ public class Paste {
 	private String content;
 
 	@ManyToOne(optional = true)
-	@JoinColumn(name = "column_author")
+	@JoinColumn(name = "column_author", updatable = false)
 	@OnDelete(action = OnDeleteAction.SET_NULL)
 	private User author;
+
+	@Column(name = "column_password_hash", updatable = false)
+	private String passwordHash;
 
 	@Column(name = "column_expires_at", updatable = false)
 	private LocalDateTime expiresAt;

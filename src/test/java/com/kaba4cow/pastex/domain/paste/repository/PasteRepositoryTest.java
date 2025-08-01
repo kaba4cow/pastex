@@ -26,6 +26,7 @@ public class PasteRepositoryTest {
 		Paste paste = Paste.builder()//
 				.content("test content")//
 				.author(null)//
+				.passwordHash(null)//
 				.build();
 
 		pasteRepository.save(paste);
@@ -40,6 +41,7 @@ public class PasteRepositoryTest {
 		Paste paste = Paste.builder()//
 				.content("test content")//
 				.author(null)//
+				.passwordHash(null)//
 				.build();
 
 		pasteRepository.save(paste);
