@@ -24,8 +24,8 @@ public class PasteControllerImpl implements PasteController {
 	}
 
 	@Override
-	public ResponseEntity<PasteDto> getPaste(UUID id) {
-		return ResponseEntity.ok(pasteService.getPaste(id));
+	public ResponseEntity<PasteDto> getPaste(UUID id, String password) {
+		return ResponseEntity.ok(pasteService.getPaste(id, password));
 	}
 
 }

@@ -4,9 +4,11 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.kaba4cow.pastex.common.exception.WrongPastePasswordException;
 import com.kaba4cow.pastex.domain.paste.dto.PasteCreateRequest;
 import com.kaba4cow.pastex.domain.paste.dto.PasteDto;
 import com.kaba4cow.pastex.domain.paste.dto.PasteMapper;
@@ -51,8 +53,14 @@ public class DefaultPasteService implements PasteService {
 	}
 
 	@Override
-	public PasteDto getPaste(UUID id) {
-		return pasteMapper.mapToDto(pasteRepository.findByIdOrThrow(id));
+	public PasteDto getPaste(UUID id, String password) {
+		Paste paste = pasteRepository.findByIdOrThrow(id);
+		if (paste.isSecured())
+			if (Objects.isNull(password))
+				throw new AccessDeniedException("Paste is secured");
+			else if (!passwordEncoder.matches(password, paste.getPasswordHash()))
+				throw new WrongPastePasswordException("Wrong paste password");
+		return pasteMapper.mapToDto(paste);
 	}
 
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kaba4cow.pastex.auth.annotation.CurrentUser;
 import com.kaba4cow.pastex.domain.paste.dto.PasteCreateRequest;
@@ -25,7 +26,7 @@ public interface PasteController {
 
 	@GetMapping("/{id}")
 	ResponseEntity<PasteDto> getPaste(//
-			@PathVariable UUID id//
-	);
+			@PathVariable UUID id, //
+			@RequestParam(required = false) String password);
 
 }

@@ -10,6 +10,6 @@ public interface PasteService {
 
 	PasteDto createPaste(PasteCreateRequest request, User author);
 
-	PasteDto getPaste(UUID id);
+	PasteDto getPaste(UUID id, String password);
 
 }
