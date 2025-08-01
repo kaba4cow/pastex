@@ -18,4 +18,6 @@ public class PasteDto {
 
 	private final LocalDateTime createdAt;
 
+	private final LocalDateTime expiresAt;
+
 }
