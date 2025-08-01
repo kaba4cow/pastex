@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kaba4cow.pastex.domain.paste.repository.PasteRepository;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,6 +17,11 @@ import lombok.extern.slf4j.Slf4j;
 public class PasteCleanupService {
 
 	private final PasteRepository pasteRepository;
+
+	@PostConstruct
+	public void onStartup() {
+		deleteExpiredPastes();
+	}
 
 	@Scheduled(cron = "0 0 * * * *")
 	public void deleteExpiredPastes() {
