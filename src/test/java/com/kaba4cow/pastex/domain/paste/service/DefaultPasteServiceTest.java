@@ -3,6 +3,7 @@ package com.kaba4cow.pastex.domain.paste.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -20,6 +21,7 @@ import com.kaba4cow.pastex.domain.paste.dto.PasteCreateRequest;
 import com.kaba4cow.pastex.domain.paste.dto.PasteDto;
 import com.kaba4cow.pastex.domain.paste.dto.PasteMapper;
 import com.kaba4cow.pastex.domain.paste.model.Paste;
+import com.kaba4cow.pastex.domain.paste.policy.PasteAccessPolicy;
 import com.kaba4cow.pastex.domain.paste.repository.PasteRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,6 +32,9 @@ public class DefaultPasteServiceTest {
 
 	@Mock
 	private ExpirationService expirationService;
+
+	@Mock
+	private PasteAccessPolicy pasteAccessPolicy;
 
 	@Mock
 	private PasteMapper pasteMapper;
@@ -82,6 +87,7 @@ public class DefaultPasteServiceTest {
 				.expiresAt(LocalDateTime.MAX)//
 				.build();
 
+		doNothing().when(pasteAccessPolicy).checkAccess(any(Paste.class), any(), any());
 		when(pasteRepository.findByIdOrThrow(id)).thenReturn(foundPaste);
 		when(pasteMapper.mapToDto(foundPaste)).thenReturn(expectedDto);
 
