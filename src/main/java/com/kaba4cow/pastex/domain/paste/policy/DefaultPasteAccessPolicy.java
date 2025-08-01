@@ -28,6 +28,8 @@ public class DefaultPasteAccessPolicy implements PasteAccessPolicy {
 	}
 
 	private boolean isAuthor(Paste paste, User user) {
+		if (Objects.isNull(user))
+			return false;
 		User author = paste.getAuthor();
 		if (Objects.isNull(author))
 			return false;
