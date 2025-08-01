@@ -11,7 +11,6 @@ public class PasteMapper {
 		return PasteDto.builder()//
 				.id(paste.getId())//
 				.content(paste.getContent())//
-				.createdAt(paste.getCreatedAt())//
 				.expiresAt(paste.getExpiresAt())//
 				.build();
 	}

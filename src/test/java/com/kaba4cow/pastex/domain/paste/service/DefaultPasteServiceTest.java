@@ -46,13 +46,11 @@ public class DefaultPasteServiceTest {
 		Paste savedPaste = Paste.builder()//
 				.id(UUID.randomUUID())//
 				.content(content)//
-				.createdAt(LocalDateTime.now())//
 				.expiresAt(LocalDateTime.MAX)//
 				.build();
 		PasteDto expectedDto = PasteDto.builder()//
 				.id(savedPaste.getId())//
 				.content(content)//
-				.createdAt(savedPaste.getCreatedAt())//
 				.expiresAt(LocalDateTime.MAX)//
 				.build();
 
@@ -74,13 +72,11 @@ public class DefaultPasteServiceTest {
 		Paste foundPaste = Paste.builder()//
 				.id(id)//
 				.content(content)//
-				.createdAt(LocalDateTime.now())//
 				.expiresAt(LocalDateTime.MAX)//
 				.build();
 		PasteDto expectedDto = PasteDto.builder()//
 				.id(foundPaste.getId())//
 				.content(foundPaste.getContent())//
-				.createdAt(foundPaste.getCreatedAt())//
 				.expiresAt(LocalDateTime.MAX)//
 				.build();
 
