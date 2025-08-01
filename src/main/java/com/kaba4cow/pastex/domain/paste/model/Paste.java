@@ -40,4 +40,7 @@ public class Paste {
 	@Column(name = "column_created_at", updatable = false)
 	private LocalDateTime createdAt;
 
+	@Column(name = "column_expires_at", updatable = false)
+	private LocalDateTime expiresAt;
+
 }
