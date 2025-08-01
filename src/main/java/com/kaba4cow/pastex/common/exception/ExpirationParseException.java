@@ -1,4 +1,4 @@
-package com.kaba4cow.pastex.domain.paste.service;
+package com.kaba4cow.pastex.common.exception;
 
 public class ExpirationParseException extends RuntimeException {
 

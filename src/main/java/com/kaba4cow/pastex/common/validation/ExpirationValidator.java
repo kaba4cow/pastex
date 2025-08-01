@@ -2,7 +2,7 @@ package com.kaba4cow.pastex.common.validation;
 
 import org.springframework.stereotype.Component;
 
-import com.kaba4cow.pastex.domain.paste.service.ExpirationParseException;
+import com.kaba4cow.pastex.common.exception.ExpirationParseException;
 import com.kaba4cow.pastex.domain.paste.service.ExpirationService;
 
 import jakarta.validation.ConstraintValidator;
