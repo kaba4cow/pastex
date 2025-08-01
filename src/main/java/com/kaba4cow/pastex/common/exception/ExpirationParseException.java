@@ -1,6 +1,6 @@
 package com.kaba4cow.pastex.common.exception;
 
-public class ExpirationParseException extends RuntimeException {
+public class ExpirationParseException extends IllegalArgumentException {
 
 	private static final long serialVersionUID = 1L;
 
