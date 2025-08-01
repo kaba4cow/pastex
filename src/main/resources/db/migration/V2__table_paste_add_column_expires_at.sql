@@ -1,0 +1,3 @@
+ALTER TABLE table_paste
+	ADD COLUMN column_expires_at TIMESTAMP NOT NULL DEFAULT '9999-12-31 23:59:59'
+;

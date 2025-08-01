@@ -29,6 +29,9 @@ public class DefaultPasteServiceTest {
 	private PasteRepository pasteRepository;
 
 	@Mock
+	private ExpirationService expirationService;
+
+	@Mock
 	private PasteMapper pasteMapper;
 
 	@InjectMocks
@@ -44,13 +47,16 @@ public class DefaultPasteServiceTest {
 				.id(UUID.randomUUID())//
 				.content(content)//
 				.createdAt(LocalDateTime.now())//
+				.expiresAt(LocalDateTime.MAX)//
 				.build();
 		PasteDto expectedDto = PasteDto.builder()//
 				.id(savedPaste.getId())//
 				.content(content)//
 				.createdAt(savedPaste.getCreatedAt())//
+				.expiresAt(LocalDateTime.MAX)//
 				.build();
 
+		when(expirationService.computeExpiresAt(any())).thenReturn(LocalDateTime.MAX);
 		when(pasteRepository.save(any(Paste.class))).thenReturn(savedPaste);
 		when(pasteMapper.mapToDto(savedPaste)).thenReturn(expectedDto);
 
@@ -69,11 +75,13 @@ public class DefaultPasteServiceTest {
 				.id(id)//
 				.content(content)//
 				.createdAt(LocalDateTime.now())//
+				.expiresAt(LocalDateTime.MAX)//
 				.build();
 		PasteDto expectedDto = PasteDto.builder()//
 				.id(foundPaste.getId())//
 				.content(foundPaste.getContent())//
 				.createdAt(foundPaste.getCreatedAt())//
+				.expiresAt(LocalDateTime.MAX)//
 				.build();
 
 		when(pasteRepository.findByIdOrThrow(id)).thenReturn(foundPaste);

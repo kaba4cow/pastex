@@ -1,5 +1,6 @@
 package com.kaba4cow.pastex.domain.paste.service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -20,12 +21,16 @@ public class DefaultPasteService implements PasteService {
 
 	private final PasteRepository pasteRepository;
 
+	private final ExpirationService expirationService;
+
 	private final PasteMapper pasteMapper;
 
 	@Override
 	public PasteDto createPaste(PasteCreateRequest request) {
+		LocalDateTime expiresAt = expirationService.computeExpiresAt(request.getExpiration());
 		Paste paste = Paste.builder()//
 				.content(request.getContent())//
+				.expiresAt(expiresAt)//
 				.build();
 		Paste saved = pasteRepository.save(paste);
 		log.info("Created paste: {}", saved);

@@ -12,6 +12,7 @@ public class PasteMapper {
 				.id(paste.getId())//
 				.content(paste.getContent())//
 				.createdAt(paste.getCreatedAt())//
+				.expiresAt(paste.getExpiresAt())//
 				.build();
 	}
 
