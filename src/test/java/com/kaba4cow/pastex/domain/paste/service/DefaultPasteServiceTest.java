@@ -85,7 +85,7 @@ public class DefaultPasteServiceTest {
 		when(pasteRepository.findByIdOrThrow(id)).thenReturn(foundPaste);
 		when(pasteMapper.mapToDto(foundPaste)).thenReturn(expectedDto);
 
-		PasteDto actualDto = pasteService.getPaste(id, null);
+		PasteDto actualDto = pasteService.getPaste(id, null, null);
 
 		verify(pasteRepository).findByIdOrThrow(id);
 		assertEquals(expectedDto, actualDto);
@@ -95,7 +95,7 @@ public class DefaultPasteServiceTest {
 	public void getPaste_shouldThrowNotFound() {
 		when(pasteRepository.findByIdOrThrow(any(UUID.class))).thenThrow(NotFoundException.class);
 
-		assertThrows(NotFoundException.class, () -> pasteService.getPaste(UUID.randomUUID(), null));
+		assertThrows(NotFoundException.class, () -> pasteService.getPaste(UUID.randomUUID(), null, null));
 
 		verify(pasteRepository).findByIdOrThrow(any(UUID.class));
 	}

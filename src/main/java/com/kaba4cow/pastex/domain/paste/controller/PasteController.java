@@ -27,6 +27,8 @@ public interface PasteController {
 	@GetMapping("/{id}")
 	ResponseEntity<PasteDto> getPaste(//
 			@PathVariable UUID id, //
-			@RequestParam(required = false) String password);
+			@RequestParam(required = false) String password, //
+			@CurrentUser User requester//
+	);
 
 }

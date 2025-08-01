@@ -54,9 +54,9 @@ public class DefaultPasteService implements PasteService {
 	}
 
 	@Override
-	public PasteDto getPaste(UUID id, String password) {
+	public PasteDto getPaste(UUID id, String password, User requester) {
 		Paste paste = pasteRepository.findByIdOrThrow(id);
-		pasteAccessPolicy.checkAccess(paste, password, null);
+		pasteAccessPolicy.checkAccess(paste, password, requester);
 		return pasteMapper.mapToDto(paste);
 	}
 
