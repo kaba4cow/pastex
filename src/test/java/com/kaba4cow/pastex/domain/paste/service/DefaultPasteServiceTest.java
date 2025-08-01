@@ -60,7 +60,7 @@ public class DefaultPasteServiceTest {
 		when(pasteRepository.save(any(Paste.class))).thenReturn(savedPaste);
 		when(pasteMapper.mapToDto(savedPaste)).thenReturn(expectedDto);
 
-		PasteDto actualDto = pasteService.createPaste(request);
+		PasteDto actualDto = pasteService.createPaste(request, null);
 
 		verify(pasteRepository).save(any(Paste.class));
 		assertEquals(expectedDto, actualDto);

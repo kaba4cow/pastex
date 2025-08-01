@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kaba4cow.pastex.domain.paste.dto.PasteCreateRequest;
 import com.kaba4cow.pastex.domain.paste.dto.PasteDto;
 import com.kaba4cow.pastex.domain.paste.service.PasteService;
+import com.kaba4cow.pastex.domain.user.model.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,8 +19,8 @@ public class PasteControllerImpl implements PasteController {
 	private final PasteService pasteService;
 
 	@Override
-	public ResponseEntity<PasteDto> createPaste(PasteCreateRequest request) {
-		return ResponseEntity.ok(pasteService.createPaste(request));
+	public ResponseEntity<PasteDto> createPaste(PasteCreateRequest request, User author) {
+		return ResponseEntity.ok(pasteService.createPaste(request, author));
 	}
 
 	@Override

@@ -9,15 +9,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kaba4cow.pastex.auth.annotation.CurrentUser;
 import com.kaba4cow.pastex.domain.paste.dto.PasteCreateRequest;
 import com.kaba4cow.pastex.domain.paste.dto.PasteDto;
+import com.kaba4cow.pastex.domain.user.model.User;
 
 @RequestMapping("/api/pastes")
 public interface PasteController {
 
 	@PostMapping
 	ResponseEntity<PasteDto> createPaste(//
-			@RequestBody PasteCreateRequest request//
+			@RequestBody PasteCreateRequest request, //
+			@CurrentUser User author//
 	);
 
 	@GetMapping("/{id}")

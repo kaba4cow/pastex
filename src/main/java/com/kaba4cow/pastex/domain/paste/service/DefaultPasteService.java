@@ -12,6 +12,7 @@ import com.kaba4cow.pastex.domain.paste.dto.PasteDto;
 import com.kaba4cow.pastex.domain.paste.dto.PasteMapper;
 import com.kaba4cow.pastex.domain.paste.model.Paste;
 import com.kaba4cow.pastex.domain.paste.repository.PasteRepository;
+import com.kaba4cow.pastex.domain.user.model.User;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,10 +31,11 @@ public class DefaultPasteService implements PasteService {
 	private final PasteMapper pasteMapper;
 
 	@Override
-	public PasteDto createPaste(PasteCreateRequest request) {
+	public PasteDto createPaste(PasteCreateRequest request, User author) {
 		LocalDateTime expiresAt = expirationService.computeExpiresAt(request.getExpiration());
 		Paste paste = Paste.builder()//
 				.content(request.getContent())//
+				.author(author)//
 				.passwordHash(encodePasswordIfProvided(request.getPassword()))//
 				.expiresAt(expiresAt)//
 				.build();
