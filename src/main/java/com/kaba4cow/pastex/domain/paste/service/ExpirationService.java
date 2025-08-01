@@ -9,9 +9,10 @@ public interface ExpirationService {
 	Duration parseExpiration(String expiration);
 
 	default LocalDateTime computeExpiresAt(String expiration) {
+		LocalDateTime now = LocalDateTime.now();
 		return Objects.isNull(expiration)//
 				? LocalDateTime.MAX//
-				: LocalDateTime.now().plus(parseExpiration(expiration));
+				: now.plus(parseExpiration(expiration));
 	}
 
 }
