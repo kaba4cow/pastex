@@ -40,9 +40,9 @@ public interface PasteController {
 	);
 
 	@Operation(//
-			summary = "Get post by ID", //
+			summary = "Get paste by ID", //
 			description = """
-					Returns post by ID using password if paste is secured.
+					Returns paste by ID using password if secured.
 					"""//
 	)
 	@GetMapping("/{id}")
