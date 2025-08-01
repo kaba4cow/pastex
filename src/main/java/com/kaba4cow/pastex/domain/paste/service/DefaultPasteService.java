@@ -7,11 +7,11 @@ import java.util.UUID;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.kaba4cow.pastex.common.exception.PasteAccessException;
 import com.kaba4cow.pastex.domain.paste.dto.PasteCreateRequest;
 import com.kaba4cow.pastex.domain.paste.dto.PasteDto;
 import com.kaba4cow.pastex.domain.paste.dto.PasteMapper;
 import com.kaba4cow.pastex.domain.paste.model.Paste;
+import com.kaba4cow.pastex.domain.paste.policy.PasteAccessPolicy;
 import com.kaba4cow.pastex.domain.paste.repository.PasteRepository;
 import com.kaba4cow.pastex.domain.user.model.User;
 
@@ -28,6 +28,8 @@ public class DefaultPasteService implements PasteService {
 	private final ExpirationService expirationService;
 
 	private final PasswordEncoder passwordEncoder;
+
+	private final PasteAccessPolicy pasteAccessPolicy;
 
 	private final PasteMapper pasteMapper;
 
@@ -54,11 +56,7 @@ public class DefaultPasteService implements PasteService {
 	@Override
 	public PasteDto getPaste(UUID id, String password) {
 		Paste paste = pasteRepository.findByIdOrThrow(id);
-		if (paste.isSecured())
-			if (Objects.isNull(password))
-				throw new PasteAccessException("Paste is secured");
-			else if (!passwordEncoder.matches(password, paste.getPasswordHash()))
-				throw new PasteAccessException("Wrong paste password");
+		pasteAccessPolicy.checkAccess(paste, password, null);
 		return pasteMapper.mapToDto(paste);
 	}
 
