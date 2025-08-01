@@ -1,8 +1,10 @@
 package com.kaba4cow.pastex.domain.paste.service;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kaba4cow.pastex.domain.paste.dto.PasteCreateRequest;
@@ -23,6 +25,8 @@ public class DefaultPasteService implements PasteService {
 
 	private final ExpirationService expirationService;
 
+	private final PasswordEncoder passwordEncoder;
+
 	private final PasteMapper pasteMapper;
 
 	@Override
@@ -30,11 +34,18 @@ public class DefaultPasteService implements PasteService {
 		LocalDateTime expiresAt = expirationService.computeExpiresAt(request.getExpiration());
 		Paste paste = Paste.builder()//
 				.content(request.getContent())//
+				.passwordHash(encodePasswordIfProvided(request.getPassword()))//
 				.expiresAt(expiresAt)//
 				.build();
 		Paste saved = pasteRepository.save(paste);
 		log.info("Created paste: {}", saved);
 		return pasteMapper.mapToDto(saved);
+	}
+
+	private String encodePasswordIfProvided(String password) {
+		return Objects.isNull(password)//
+				? null//
+				: passwordEncoder.encode(password);
 	}
 
 	@Override
