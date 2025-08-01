@@ -1,6 +1,7 @@
 package com.kaba4cow.pastex.domain.paste.model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.hibernate.annotations.OnDelete;
@@ -51,5 +52,9 @@ public class Paste {
 
 	@Column(name = "column_expires_at", updatable = false)
 	private LocalDateTime expiresAt;
+
+	public boolean isSecured() {
+		return Objects.nonNull(passwordHash);
+	}
 
 }
