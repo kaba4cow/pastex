@@ -1,6 +1,9 @@
 spring:
     application:
         name: pastex
+    config:
+        import:
+            - secret.yml
     jpa:
         show-sql: false
         properties:
