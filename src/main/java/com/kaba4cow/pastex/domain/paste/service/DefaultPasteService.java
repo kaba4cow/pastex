@@ -24,7 +24,7 @@ public class DefaultPasteService implements PasteService {
 
 	private final PasteRepository pasteRepository;
 
-	private final ExpirationService expirationService;
+	private final PasteExpirationService expirationService;
 
 	private final PasswordEncoder passwordEncoder;
 

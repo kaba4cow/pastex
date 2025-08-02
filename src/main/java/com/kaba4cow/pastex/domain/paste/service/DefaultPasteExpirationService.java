@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-public class DefaultExpirationService implements ExpirationService {
+public class DefaultPasteExpirationService implements PasteExpirationService {
 
 	@Override
 	public LocalDateTime computeExpiresAt(Long expiration) {

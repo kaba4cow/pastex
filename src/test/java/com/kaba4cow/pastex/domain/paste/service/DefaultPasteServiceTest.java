@@ -31,7 +31,7 @@ public class DefaultPasteServiceTest {
 	private PasteRepository pasteRepository;
 
 	@Mock
-	private ExpirationService expirationService;
+	private PasteExpirationService expirationService;
 
 	@Mock
 	private PasteAccessPolicy pasteAccessPolicy;
