@@ -20,6 +20,7 @@ import com.kaba4cow.pastex.common.exception.NotFoundException;
 import com.kaba4cow.pastex.domain.paste.dto.PasteCreateRequest;
 import com.kaba4cow.pastex.domain.paste.dto.PasteDto;
 import com.kaba4cow.pastex.domain.paste.dto.PasteMapper;
+import com.kaba4cow.pastex.domain.paste.factory.PasteFactory;
 import com.kaba4cow.pastex.domain.paste.model.Paste;
 import com.kaba4cow.pastex.domain.paste.policy.PasteAccessPolicy;
 import com.kaba4cow.pastex.domain.paste.repository.PasteRepository;
@@ -31,7 +32,7 @@ public class DefaultPasteServiceTest {
 	private PasteRepository pasteRepository;
 
 	@Mock
-	private PasteExpirationService expirationService;
+	private PasteFactory pasteFactory;
 
 	@Mock
 	private PasteAccessPolicy pasteAccessPolicy;
@@ -49,6 +50,11 @@ public class DefaultPasteServiceTest {
 				.content(content)//
 				.password(null)//
 				.build();
+		Paste newPaste = Paste.builder()//
+				.content(content)//
+				.passwordHash(null)//
+				.expiresAt(LocalDateTime.MAX)//
+				.build();
 		Paste savedPaste = Paste.builder()//
 				.id(UUID.randomUUID())//
 				.content(content)//
@@ -61,7 +67,7 @@ public class DefaultPasteServiceTest {
 				.expiresAt(LocalDateTime.MAX)//
 				.build();
 
-		when(expirationService.computeExpiresAt(any())).thenReturn(LocalDateTime.MAX);
+		when(pasteFactory.createPaste(any(PasteCreateRequest.class), any())).thenReturn(newPaste);
 		when(pasteRepository.save(any(Paste.class))).thenReturn(savedPaste);
 		when(pasteMapper.mapToDto(savedPaste)).thenReturn(expectedDto);
 

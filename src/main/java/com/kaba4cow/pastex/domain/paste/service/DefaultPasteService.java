@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.kaba4cow.pastex.domain.paste.dto.PasteCreateRequest;
 import com.kaba4cow.pastex.domain.paste.dto.PasteDto;
 import com.kaba4cow.pastex.domain.paste.dto.PasteMapper;
+import com.kaba4cow.pastex.domain.paste.factory.PasteFactory;
 import com.kaba4cow.pastex.domain.paste.model.Paste;
 import com.kaba4cow.pastex.domain.paste.policy.PasteAccessPolicy;
 import com.kaba4cow.pastex.domain.paste.repository.PasteRepository;
@@ -22,9 +23,7 @@ public class DefaultPasteService implements PasteService {
 
 	private final PasteRepository pasteRepository;
 
-	private final PasteExpirationService pasteExpirationService;
-
-	private final PastePasswordService pastePasswordService;
+	private final PasteFactory pasteFactory;
 
 	private final PasteAccessPolicy pasteAccessPolicy;
 
@@ -32,13 +31,7 @@ public class DefaultPasteService implements PasteService {
 
 	@Override
 	public PasteDto createPaste(PasteCreateRequest request, User author) {
-		Paste paste = Paste.builder()//
-				.content(request.getContent())//
-				.author(author)//
-				.passwordHash(pastePasswordService.encodePasswordIfProvided(request.getPassword()))//
-				.expiresAt(pasteExpirationService.computeExpiresAt(request.getExpiration()))//
-				.build();
-		Paste saved = pasteRepository.save(paste);
+		Paste saved = pasteRepository.save(pasteFactory.createPaste(request, author));
 		log.info("Created paste: {}", saved);
 		return pasteMapper.mapToDto(saved);
 	}
