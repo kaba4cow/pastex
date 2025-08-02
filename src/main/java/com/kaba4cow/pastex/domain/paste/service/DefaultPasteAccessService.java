@@ -19,21 +19,12 @@ public class DefaultPasteAccessService implements PasteAccessService {
 
 	@Override
 	public void requestAccess(Paste paste, String password, User requester) {
-		if (!paste.isSecured() || isAuthor(paste, requester))
+		if (!paste.isSecured() || paste.authorEquals(requester))
 			return;
 		if (Objects.isNull(password))
 			throw new PasteAccessException("Paste is secured");
 		else if (!passwordEncoder.matches(password, paste.getPasswordHash()))
 			throw new PasteAccessException("Wrong paste password");
-	}
-
-	private boolean isAuthor(Paste paste, User user) {
-		if (Objects.isNull(user))
-			return false;
-		User author = paste.getAuthor();
-		if (Objects.isNull(author))
-			return false;
-		return Objects.equals(author.getId(), user.getId());
 	}
 
 }
