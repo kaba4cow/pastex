@@ -53,7 +53,7 @@ public class DefaultPasteReadServiceTest {
 				.expiresAt(LocalDateTime.MAX)//
 				.build();
 
-		doNothing().when(pasteAccessPolicy).checkAccess(any(Paste.class), any(), any());
+		doNothing().when(pasteAccessPolicy).requestAccess(any(Paste.class), any(), any());
 		when(pasteRepository.findByIdOrThrow(id)).thenReturn(foundPaste);
 		when(pasteMapper.mapToDto(foundPaste)).thenReturn(expectedDto);
 

@@ -5,6 +5,6 @@ import com.kaba4cow.pastex.domain.user.model.User;
 
 public interface PasteAccessService {
 
-	void checkAccess(Paste paste, String password, User requester);
+	void requestAccess(Paste paste, String password, User requester);
 
 }

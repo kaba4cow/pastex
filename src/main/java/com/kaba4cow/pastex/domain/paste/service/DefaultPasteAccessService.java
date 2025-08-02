@@ -18,7 +18,7 @@ public class DefaultPasteAccessService implements PasteAccessService {
 	private final PasswordEncoder passwordEncoder;
 
 	@Override
-	public void checkAccess(Paste paste, String password, User requester) {
+	public void requestAccess(Paste paste, String password, User requester) {
 		if (!paste.isSecured() || isAuthor(paste, requester))
 			return;
 		if (Objects.isNull(password))
