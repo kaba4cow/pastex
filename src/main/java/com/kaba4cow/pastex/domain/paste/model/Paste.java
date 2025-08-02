@@ -57,4 +57,8 @@ public class Paste {
 		return Objects.nonNull(passwordHash);
 	}
 
+	public boolean authorEquals(User user) {
+		return Objects.nonNull(user) && Objects.nonNull(author) && Objects.equals(author.getId(), user.getId());
+	}
+
 }
