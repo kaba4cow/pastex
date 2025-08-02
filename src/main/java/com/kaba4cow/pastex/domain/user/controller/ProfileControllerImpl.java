@@ -7,7 +7,8 @@ import com.kaba4cow.pastex.domain.user.dto.ChangeEmailRequest;
 import com.kaba4cow.pastex.domain.user.dto.ChangePasswordRequest;
 import com.kaba4cow.pastex.domain.user.dto.ProfileDto;
 import com.kaba4cow.pastex.domain.user.model.User;
-import com.kaba4cow.pastex.domain.user.service.ProfileService;
+import com.kaba4cow.pastex.domain.user.service.ProfileReadService;
+import com.kaba4cow.pastex.domain.user.service.ProfileUpdateService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,22 +16,24 @@ import lombok.RequiredArgsConstructor;
 @RestController
 public class ProfileControllerImpl implements ProfileController {
 
-	private final ProfileService profileService;
+	private final ProfileReadService profileReadService;
+
+	private final ProfileUpdateService profileUpdateService;
 
 	@Override
 	public ResponseEntity<ProfileDto> getUserInfo(User user) {
-		return ResponseEntity.ok(profileService.getProfile(user));
+		return ResponseEntity.ok(profileReadService.getProfile(user));
 	}
 
 	@Override
 	public ResponseEntity<ProfileDto> changeEmail(ChangeEmailRequest request, User user) {
-		ProfileDto result = profileService.changeEmail(request, user);
+		ProfileDto result = profileUpdateService.changeEmail(request, user);
 		return ResponseEntity.ok(result);
 	}
 
 	@Override
 	public ResponseEntity<Void> changePassword(ChangePasswordRequest request, User user) {
-		profileService.changePassword(request, user);
+		profileUpdateService.changePassword(request, user);
 		return ResponseEntity.noContent().build();
 	}
 

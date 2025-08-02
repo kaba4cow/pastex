@@ -5,9 +5,7 @@ import com.kaba4cow.pastex.domain.user.dto.ChangePasswordRequest;
 import com.kaba4cow.pastex.domain.user.dto.ProfileDto;
 import com.kaba4cow.pastex.domain.user.model.User;
 
-public interface ProfileService {
-
-	ProfileDto getProfile(User user);
+public interface ProfileUpdateService {
 
 	ProfileDto changeEmail(ChangeEmailRequest request, User user);
 

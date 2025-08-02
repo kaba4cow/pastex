@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class DefaultProfileService implements ProfileService {
+public class DefaultProfileUpdateService implements ProfileUpdateService {
 
 	private final UserRepository userRepository;
 
@@ -27,11 +27,6 @@ public class DefaultProfileService implements ProfileService {
 	private final PasswordEncoder passwordEncoder;
 
 	private final ProfileMapper profileMapper;
-
-	@Override
-	public ProfileDto getProfile(User user) {
-		return profileMapper.mapToDto(user);
-	}
 
 	@Override
 	public ProfileDto changeEmail(ChangeEmailRequest request, User user) {
