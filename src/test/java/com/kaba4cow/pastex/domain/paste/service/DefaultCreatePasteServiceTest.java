@@ -30,7 +30,7 @@ public class DefaultCreatePasteServiceTest {
 	private PasteMapper pasteMapper;
 
 	@InjectMocks
-	private DefaultCreatePasteService createPasteService;
+	private DefaultPasteCreateService pasteCreateService;
 
 	@Test
 	public void createPaste_shouldSaveAndReturnDto() {
@@ -54,7 +54,7 @@ public class DefaultCreatePasteServiceTest {
 		when(pasteRepository.save(any(Paste.class))).thenReturn(savedPaste);
 		when(pasteMapper.mapToDto(savedPaste)).thenReturn(expectedDto);
 
-		PasteDto actualDto = createPasteService.createPaste(request, null);
+		PasteDto actualDto = pasteCreateService.createPaste(request, null);
 
 		verify(pasteRepository).save(any(Paste.class));
 		assertEquals(expectedDto, actualDto);

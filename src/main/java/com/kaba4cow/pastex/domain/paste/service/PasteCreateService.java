@@ -4,7 +4,7 @@ import com.kaba4cow.pastex.domain.paste.dto.PasteCreateRequest;
 import com.kaba4cow.pastex.domain.paste.dto.PasteDto;
 import com.kaba4cow.pastex.domain.user.model.User;
 
-public interface CreatePasteService {
+public interface PasteCreateService {
 
 	PasteDto createPaste(PasteCreateRequest request, User author);
 

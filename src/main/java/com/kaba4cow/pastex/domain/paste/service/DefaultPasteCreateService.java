@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class DefaultCreatePasteService implements CreatePasteService {
+public class DefaultPasteCreateService implements PasteCreateService {
 
 	private final PasteRepository pasteRepository;
 
