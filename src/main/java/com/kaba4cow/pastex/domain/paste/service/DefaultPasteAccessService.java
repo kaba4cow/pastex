@@ -1,9 +1,9 @@
-package com.kaba4cow.pastex.domain.paste.policy;
+package com.kaba4cow.pastex.domain.paste.service;
 
 import java.util.Objects;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.kaba4cow.pastex.common.exception.PasteAccessException;
 import com.kaba4cow.pastex.domain.paste.model.Paste;
@@ -12,8 +12,8 @@ import com.kaba4cow.pastex.domain.user.model.User;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@Component
-public class DefaultPasteAccessPolicy implements PasteAccessPolicy {
+@Service
+public class DefaultPasteAccessService implements PasteAccessService {
 
 	private final PasswordEncoder passwordEncoder;
 

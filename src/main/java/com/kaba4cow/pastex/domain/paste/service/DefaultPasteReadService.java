@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.kaba4cow.pastex.domain.paste.dto.PasteDto;
 import com.kaba4cow.pastex.domain.paste.dto.PasteMapper;
 import com.kaba4cow.pastex.domain.paste.model.Paste;
-import com.kaba4cow.pastex.domain.paste.policy.PasteAccessPolicy;
 import com.kaba4cow.pastex.domain.paste.repository.PasteRepository;
 import com.kaba4cow.pastex.domain.user.model.User;
 
@@ -21,7 +20,7 @@ public class DefaultPasteReadService implements PasteReadService {
 
 	private final PasteRepository pasteRepository;
 
-	private final PasteAccessPolicy pasteAccessPolicy;
+	private final PasteAccessService pasteAccessPolicy;
 
 	private final PasteMapper pasteMapper;
 

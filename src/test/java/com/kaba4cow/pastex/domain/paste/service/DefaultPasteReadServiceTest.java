@@ -20,7 +20,6 @@ import com.kaba4cow.pastex.common.exception.NotFoundException;
 import com.kaba4cow.pastex.domain.paste.dto.PasteDto;
 import com.kaba4cow.pastex.domain.paste.dto.PasteMapper;
 import com.kaba4cow.pastex.domain.paste.model.Paste;
-import com.kaba4cow.pastex.domain.paste.policy.PasteAccessPolicy;
 import com.kaba4cow.pastex.domain.paste.repository.PasteRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,7 +29,7 @@ public class DefaultPasteReadServiceTest {
 	private PasteRepository pasteRepository;
 
 	@Mock
-	private PasteAccessPolicy pasteAccessPolicy;
+	private PasteAccessService pasteAccessPolicy;
 
 	@Mock
 	private PasteMapper pasteMapper;
