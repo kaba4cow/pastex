@@ -17,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.kaba4cow.pastex.domain.paste.dto.PasteCreateRequest;
 import com.kaba4cow.pastex.domain.paste.dto.PasteDto;
 import com.kaba4cow.pastex.domain.paste.dto.PasteMapper;
-import com.kaba4cow.pastex.domain.paste.factory.PasteFactory;
 import com.kaba4cow.pastex.domain.paste.model.Paste;
 import com.kaba4cow.pastex.domain.paste.repository.PasteRepository;
 
@@ -26,9 +25,6 @@ public class DefaultCreatePasteServiceTest {
 
 	@Mock
 	private PasteRepository pasteRepository;
-
-	@Mock
-	private PasteFactory pasteFactory;
 
 	@Mock
 	private PasteMapper pasteMapper;
@@ -43,11 +39,6 @@ public class DefaultCreatePasteServiceTest {
 				.content(content)//
 				.password(null)//
 				.build();
-		Paste newPaste = Paste.builder()//
-				.content(content)//
-				.passwordHash(null)//
-				.expiresAt(LocalDateTime.MAX)//
-				.build();
 		Paste savedPaste = Paste.builder()//
 				.id(UUID.randomUUID())//
 				.content(content)//
@@ -60,7 +51,6 @@ public class DefaultCreatePasteServiceTest {
 				.expiresAt(LocalDateTime.MAX)//
 				.build();
 
-		when(pasteFactory.createPaste(any(PasteCreateRequest.class), any())).thenReturn(newPaste);
 		when(pasteRepository.save(any(Paste.class))).thenReturn(savedPaste);
 		when(pasteMapper.mapToDto(savedPaste)).thenReturn(expectedDto);
 
