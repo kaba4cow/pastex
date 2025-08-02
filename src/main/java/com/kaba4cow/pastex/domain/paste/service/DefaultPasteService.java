@@ -1,6 +1,5 @@
 package com.kaba4cow.pastex.domain.paste.service;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -35,12 +34,11 @@ public class DefaultPasteService implements PasteService {
 
 	@Override
 	public PasteDto createPaste(PasteCreateRequest request, User author) {
-		LocalDateTime expiresAt = expirationService.computeExpiresAt(request.getExpiration());
 		Paste paste = Paste.builder()//
 				.content(request.getContent())//
 				.author(author)//
 				.passwordHash(encodePasswordIfProvided(request.getPassword()))//
-				.expiresAt(expiresAt)//
+				.expiresAt(expirationService.computeExpiresAt(request.getExpiration()))//
 				.build();
 		Paste saved = pasteRepository.save(paste);
 		log.info("Created paste: {}", saved);
