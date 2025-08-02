@@ -24,7 +24,7 @@ import com.kaba4cow.pastex.domain.paste.policy.PasteAccessPolicy;
 import com.kaba4cow.pastex.domain.paste.repository.PasteRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultReadPasteServiceTest {
+public class DefaultPasteReadServiceTest {
 
 	@Mock
 	private PasteRepository pasteRepository;
@@ -36,7 +36,7 @@ public class DefaultReadPasteServiceTest {
 	private PasteMapper pasteMapper;
 
 	@InjectMocks
-	private DefaultReadPasteService readPasteService;
+	private DefaultPasteReadService pasteReadService;
 
 	@Test
 	public void getPaste_shouldFindAndReturnDto() {
@@ -58,7 +58,7 @@ public class DefaultReadPasteServiceTest {
 		when(pasteRepository.findByIdOrThrow(id)).thenReturn(foundPaste);
 		when(pasteMapper.mapToDto(foundPaste)).thenReturn(expectedDto);
 
-		PasteDto actualDto = readPasteService.getPaste(id, null, null);
+		PasteDto actualDto = pasteReadService.getPaste(id, null, null);
 
 		verify(pasteRepository).findByIdOrThrow(id);
 		assertEquals(expectedDto, actualDto);
@@ -68,7 +68,7 @@ public class DefaultReadPasteServiceTest {
 	public void getPaste_shouldThrowNotFound() {
 		when(pasteRepository.findByIdOrThrow(any(UUID.class))).thenThrow(NotFoundException.class);
 
-		assertThrows(NotFoundException.class, () -> readPasteService.getPaste(UUID.randomUUID(), null, null));
+		assertThrows(NotFoundException.class, () -> pasteReadService.getPaste(UUID.randomUUID(), null, null));
 
 		verify(pasteRepository).findByIdOrThrow(any(UUID.class));
 	}

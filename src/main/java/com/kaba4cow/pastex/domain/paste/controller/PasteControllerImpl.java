@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kaba4cow.pastex.domain.paste.dto.PasteCreateRequest;
 import com.kaba4cow.pastex.domain.paste.dto.PasteDto;
 import com.kaba4cow.pastex.domain.paste.service.PasteCreateService;
-import com.kaba4cow.pastex.domain.paste.service.ReadPasteService;
+import com.kaba4cow.pastex.domain.paste.service.PasteReadService;
 import com.kaba4cow.pastex.domain.user.model.User;
 
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class PasteControllerImpl implements PasteController {
 
 	private final PasteCreateService pasteCreateService;
 
-	private final ReadPasteService readPasteService;
+	private final PasteReadService pasteReadService;
 
 	@Override
 	public ResponseEntity<PasteDto> createPaste(PasteCreateRequest request, User author) {
@@ -28,7 +28,7 @@ public class PasteControllerImpl implements PasteController {
 
 	@Override
 	public ResponseEntity<PasteDto> getPaste(UUID id, String password, User requester) {
-		return ResponseEntity.ok(readPasteService.getPaste(id, password, requester));
+		return ResponseEntity.ok(pasteReadService.getPaste(id, password, requester));
 	}
 
 }
