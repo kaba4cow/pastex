@@ -21,7 +21,7 @@ import com.kaba4cow.pastex.domain.paste.model.Paste;
 import com.kaba4cow.pastex.domain.paste.repository.PasteRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultCreatePasteServiceTest {
+public class DefaultPasteCreateServiceTest {
 
 	@Mock
 	private PasteRepository pasteRepository;
